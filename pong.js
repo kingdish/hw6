@@ -68,7 +68,16 @@ function draw() {
   // don't let paddles outside of the play area
   player1.y = constrain(player1.y, 0, height-player1.ht-1);
   player2.y = constrain(player2.y, 0, height-player2.ht-1);
-  
+  if (puck.x < 0) {
+      player2.score += 1
+      puck.x = 200;
+      puck.y = 200;
+  }
+  if (puck.x > width) {
+    player1.score += 1;
+    puck.x = 200;
+    puck.y = 200;
+  }
   // bounce puck on paddles -- player 1 -- based on x-coordinate
   if (puck.x - puck.r < player1.x + player1.wd) {
     // check if puck is within paddle height...
@@ -76,11 +85,7 @@ function draw() {
       puck.xSpeed = abs(puck.xSpeed);
     }
   }
-  if (puck.x < 0) {
-      player2.score += 1
-      puck.x = 200;
-      puck.y = 200;
-    }
+
   
   // bounce puck on paddles -- player 2 -- based on x-coordinate
   if (puck.x + puck.r > player2.x - player2.wd) {
@@ -89,11 +94,7 @@ function draw() {
       puck.xSpeed = -abs(puck.xSpeed);
     }
   }
-  if (puck.x > width) {
-      player1.score += 1;
-      puck.x = 200;
-      puck.y = 200;
-  	}
+
 }
 
 // keyboard input
